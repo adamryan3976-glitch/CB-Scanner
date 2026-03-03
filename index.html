@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ChromeCheck | School Tech Manager</title>
+    <title>CB Tracker | Winchester P.S.</title>
+    
+    <!-- App Icons -->
+    <link rel="icon" type="image/png" href="ScannerAppLogo.png">
+    <link rel="apple-touch-icon" href="ScannerAppLogo.png">
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Barcode Scanner Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
-    <!-- App Icons -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232563eb'/><path d='M30 30h40v30H30zM25 65h50v5H25z' fill='white'/></svg>">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232563eb'/><path d='M30 30h40v30H30zM25 65h50v5H25z' fill='white'/></svg>">
     
     <style>
         #interactive.viewport {
@@ -73,24 +75,27 @@
 <body class="bg-slate-50 text-slate-900 font-sans min-h-screen flex flex-col">
 
     <!-- Header -->
-    <header class="bg-blue-600 text-white p-4 shadow-md sticky top-0 z-50">
+    <header class="bg-white border-b border-slate-200 p-3 shadow-sm sticky top-0 z-50">
         <div class="max-w-md mx-auto flex justify-between items-center">
-            <h1 class="text-xl font-bold flex items-center gap-2">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2-2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
-                ChromeCheck
-            </h1>
-            <span id="status-indicator" class="w-3 h-3 bg-slate-400 rounded-full border border-white/20"></span>
+            <div class="flex items-center gap-3">
+                <img src="ScannerAppLogo.png" alt="Logo" class="w-10 h-10 object-contain rounded-lg shadow-sm">
+                <div>
+                    <h1 class="text-lg font-black tracking-tight text-slate-800 leading-none">CB TRACKER</h1>
+                    <p class="text-[10px] text-blue-600 font-bold uppercase tracking-widest">Winchester P.S.</p>
+                </div>
+            </div>
+            <span id="status-indicator" class="w-3 h-3 bg-slate-400 rounded-full border-2 border-white shadow-sm"></span>
         </div>
     </header>
 
     <main class="flex-grow p-4 max-w-md mx-auto w-full space-y-4">
         
         <!-- Mode Toggle -->
-        <div class="bg-white rounded-2xl p-1 shadow-sm flex border border-slate-200">
-            <button onclick="setMode('OUT')" id="btn-out" class="flex-1 py-3 rounded-xl font-semibold transition-all bg-blue-600 text-white shadow-md">
+        <div class="bg-slate-200/50 rounded-2xl p-1 flex border border-slate-200">
+            <button onclick="setMode('OUT')" id="btn-out" class="flex-1 py-3 rounded-xl font-bold transition-all bg-blue-600 text-white shadow-md">
                 Check Out
             </button>
-            <button onclick="setMode('IN')" id="btn-in" class="flex-1 py-3 rounded-xl font-semibold transition-all text-slate-500">
+            <button onclick="setMode('IN')" id="btn-in" class="flex-1 py-3 rounded-xl font-bold transition-all text-slate-500">
                 Check In
             </button>
         </div>
@@ -99,27 +104,27 @@
         <div id="scanner-container" class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200">
             <div class="flex justify-between items-center mb-3">
                 <div class="flex flex-col">
-                    <h2 class="font-bold text-slate-700 uppercase text-xs tracking-wider">Step 1: Scan Barcode</h2>
-                    <p id="scanner-status" class="text-[10px] text-slate-400">Waiting for user interaction...</p>
+                    <h2 class="font-bold text-slate-700 uppercase text-xs tracking-wider">Step 1: Scan Device</h2>
+                    <p id="scanner-status" class="text-[10px] text-slate-400">Ready to scan</p>
                 </div>
-                <button onclick="toggleScanner()" id="scanner-toggle" class="text-blue-600 text-sm font-medium px-3 py-1 bg-blue-50 rounded-lg">Stop Camera</button>
+                <button onclick="toggleScanner()" id="scanner-toggle" class="text-blue-600 text-xs font-bold px-3 py-1 bg-blue-50 rounded-lg border border-blue-100">Stop Camera</button>
             </div>
             
             <div id="interactive" class="viewport flex items-center justify-center">
                 <div id="scanner-placeholder" class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-slate-900 text-white p-6 text-center">
-                    <svg class="w-12 h-12 mb-3 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                    <p class="text-sm mb-4">Fast scanner optimized</p>
-                    <button onclick="startScanner()" class="bg-blue-600 px-6 py-3 rounded-full font-bold text-sm shadow-lg shadow-blue-500/50">Unlock Camera</button>
+                    <img src="ScannerAppLogo.png" class="w-20 h-20 mb-4 opacity-40 grayscale" alt="App Logo">
+                    <p class="text-xs font-medium mb-4 text-slate-400 uppercase tracking-widest">Camera Authorization Required</p>
+                    <button onclick="startScanner()" class="bg-blue-600 px-8 py-3 rounded-full font-bold text-sm shadow-xl shadow-blue-500/40">Unlock Camera</button>
                 </div>
                 <div class="scan-overlay"></div>
                 <div class="scan-line"></div>
             </div>
             
             <div class="mt-4">
-                <label class="block text-xs font-semibold text-slate-500 mb-1">SERIAL / BARCODE</label>
+                <label class="block text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-widest">Device ID / Barcode</label>
                 <div class="flex gap-2">
-                    <input type="text" id="barcode-input" class="flex-1 bg-slate-100 border-none rounded-lg px-4 py-3 text-lg font-mono focus:ring-2 focus:ring-blue-500" placeholder="Waiting for scan...">
-                    <button onclick="lookupDevice()" class="bg-slate-800 text-white px-4 rounded-lg">
+                    <input type="text" id="barcode-input" class="flex-1 bg-slate-100 border-2 border-transparent rounded-xl px-4 py-3 text-lg font-mono focus:border-blue-500 focus:bg-white transition-all outline-none" placeholder="Scan result...">
+                    <button onclick="lookupDevice()" class="bg-slate-800 text-white px-4 rounded-xl active:scale-95 transition-transform">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     </button>
                 </div>
@@ -128,49 +133,53 @@
 
         <!-- Form Section -->
         <div id="form-container" class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 space-y-4">
-            <h2 class="font-bold text-slate-700 uppercase text-xs tracking-wider">Step 2: Assign Details</h2>
+            <h2 class="font-bold text-slate-700 uppercase text-xs tracking-wider">Step 2: Log Details</h2>
             
             <div id="checkout-fields">
-                <label class="block text-xs font-semibold text-slate-500 mb-1">ASSIGN TO</label>
-                <select id="assignee-type" onchange="toggleManualName()" class="w-full bg-slate-100 border-none rounded-lg px-4 py-3 mb-3">
-                    <option value="student">Student</option>
-                    <option value="teacher">Teacher</option>
-                    <option value="service">Out for Service</option>
-                </select>
-                <input type="text" id="assignee-name" class="w-full bg-slate-100 border-none rounded-lg px-4 py-3" placeholder="Full Name">
+                <label class="block text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-widest">Assignee</label>
+                <div class="flex gap-2 mb-3">
+                    <select id="assignee-type" onchange="toggleManualName()" class="bg-slate-100 border-none rounded-xl px-3 py-3 text-sm font-bold text-slate-600">
+                        <option value="student">Student</option>
+                        <option value="teacher">Staff</option>
+                        <option value="service">Repair</option>
+                    </select>
+                    <input type="text" id="assignee-name" class="flex-1 bg-slate-100 border-none rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-blue-500/20" placeholder="Full Name">
+                </div>
             </div>
 
-            <div id="checkin-fields" class="hidden bg-blue-50 p-3 rounded-lg border border-blue-100">
-                <p class="text-sm text-blue-800" id="current-holder-info">Scanning for existing record...</p>
+            <div id="checkin-fields" class="hidden bg-blue-50 p-4 rounded-xl border border-blue-100">
+                <p class="text-xs font-bold text-blue-400 uppercase tracking-widest mb-1">Current Record</p>
+                <p class="text-sm text-blue-900 font-medium" id="current-holder-info">Scan a barcode to verify owner...</p>
             </div>
 
             <div>
-                <label class="block text-xs font-semibold text-slate-500 mb-1">NOTES</label>
-                <textarea id="notes" rows="2" class="w-full bg-slate-100 border-none rounded-lg px-4 py-3" placeholder="Condition, charger included, etc..."></textarea>
+                <label class="block text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-widest">Comments</label>
+                <textarea id="notes" rows="2" class="w-full bg-slate-100 border-none rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-blue-500/20" placeholder="Condition, items included..."></textarea>
             </div>
 
-            <button onclick="submitRecord()" id="submit-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-200 transition-all flex justify-center items-center gap-2">
-                Save Record
+            <button onclick="submitRecord()" id="submit-btn" class="w-full bg-slate-900 hover:bg-black text-white font-black py-4 rounded-2xl shadow-lg transition-all flex justify-center items-center gap-2 uppercase tracking-tighter">
+                Confirm Transaction
             </button>
         </div>
 
     </main>
 
     <!-- Success Modal -->
-    <div id="success-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-6 z-[100]">
-        <div class="bg-white rounded-3xl p-8 w-full max-w-sm text-center">
-            <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+    <div id="success-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm hidden items-center justify-center p-6 z-[100]">
+        <div class="bg-white rounded-[2.5rem] p-8 w-full max-w-sm text-center shadow-2xl">
+            <div class="w-24 h-24 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg class="w-14 h-14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
             </div>
-            <h3 class="text-2xl font-bold mb-2">Success!</h3>
-            <p class="text-slate-500 mb-6">The Google Sheet has been updated successfully.</p>
-            <button onclick="closeModal()" class="w-full bg-slate-900 text-white py-3 rounded-xl font-bold">Done</button>
+            <h3 class="text-3xl font-black text-slate-800 mb-2 italic">LOGGED!</h3>
+            <p class="text-slate-500 text-sm mb-8 font-medium">Google Sheet has been updated successfully.</p>
+            <button onclick="closeModal()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-black text-lg shadow-xl shadow-blue-500/30 active:scale-95 transition-all">NEXT SCAN</button>
         </div>
     </div>
 
     <!-- Error Toast -->
-    <div id="error-toast" class="fixed bottom-4 left-4 right-4 bg-red-600 text-white p-4 rounded-xl shadow-2xl hidden transition-all z-[110]">
-        <p id="error-msg"></p>
+    <div id="error-toast" class="fixed bottom-6 left-6 right-6 bg-red-600 text-white p-4 rounded-2xl shadow-2xl hidden transition-all z-[110] flex items-center gap-3">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <p id="error-msg" class="text-xs font-bold uppercase tracking-tight"></p>
     </div>
 
     <script>
@@ -188,13 +197,13 @@
             const checkinFields = document.getElementById('checkin-fields');
             
             if (mode === 'OUT') {
-                btnOut.className = 'flex-1 py-3 rounded-xl font-semibold transition-all bg-blue-600 text-white shadow-md';
-                btnIn.className = 'flex-1 py-3 rounded-xl font-semibold transition-all text-slate-500';
+                btnOut.className = 'flex-1 py-3 rounded-xl font-bold transition-all bg-blue-600 text-white shadow-md';
+                btnIn.className = 'flex-1 py-3 rounded-xl font-bold transition-all text-slate-500';
                 checkoutFields.classList.remove('hidden');
                 checkinFields.classList.add('hidden');
             } else {
-                btnIn.className = 'flex-1 py-3 rounded-xl font-semibold transition-all bg-blue-600 text-white shadow-md';
-                btnOut.className = 'flex-1 py-3 rounded-xl font-semibold transition-all text-slate-500';
+                btnIn.className = 'flex-1 py-3 rounded-xl font-bold transition-all bg-blue-600 text-white shadow-md';
+                btnOut.className = 'flex-1 py-3 rounded-xl font-bold transition-all text-slate-500';
                 checkoutFields.classList.add('hidden');
                 checkinFields.classList.remove('hidden');
             }
@@ -214,18 +223,15 @@
             }
         }
 
-        // SPEED OPTIMIZED SCANNER LOGIC
         async function startScanner(retryCount = 0) {
             const statusLabel = document.getElementById('scanner-status');
             const placeholder = document.getElementById('scanner-placeholder');
-            
             statusLabel.innerText = "Initializing High-Speed Scanner...";
             placeholder.classList.add('loading-shimmer');
 
-            // Using ideal constraints for performance
             const constraints = {
                 facingMode: "environment",
-                width: { ideal: 640 }, // Lower resolution = much faster processing
+                width: { ideal: 640 },
                 height: { ideal: 480 },
                 frameRate: { ideal: 30, min: 20 }
             };
@@ -239,17 +245,16 @@
                     async: true
                 },
                 locator: {
-                    patchSize: "medium", // Medium is faster than large for barcodes
-                    halfSample: true    // Speed optimization: scale image down for location
+                    patchSize: "medium",
+                    halfSample: true
                 },
-                numOfWorkers: navigator.hardwareConcurrency || 4, // Use multiple CPU cores
+                numOfWorkers: navigator.hardwareConcurrency || 4,
                 decoder: {
-                    // Limit readers to only what's likely used (faster than searching for all types)
                     readers: ["code_128_reader", "code_39_reader"],
                     multiple: false
                 },
                 locate: true,
-                frequency: 10 // Max 10 scans per second to prevent CPU lag
+                frequency: 10
             }, function(err) {
                 if (err) {
                     if (retryCount < 2) {
@@ -265,7 +270,7 @@
                 placeholder.classList.add('hidden');
                 Quagga.start();
                 scannerRunning = true;
-                statusLabel.innerText = "High-Speed Scanner Active";
+                statusLabel.innerText = "Scanner Ready";
                 document.getElementById('scanner-toggle').innerText = "Stop Camera";
                 document.getElementById('status-indicator').classList.replace('bg-slate-400', 'bg-green-400');
             });
@@ -306,32 +311,32 @@
         async function lookupDevice() {
             const barcode = document.getElementById('barcode-input').value;
             if (!barcode) return;
-            document.getElementById('current-holder-info').innerText = "Searching records...";
+            document.getElementById('current-holder-info').innerText = "Fetching owner details...";
             try {
                 const response = await fetch(`${APPS_SCRIPT_URL}?action=lookup&barcode=${barcode}`);
                 const data = await response.json();
                 if (data.found) {
                     document.getElementById('current-holder-info').innerHTML = `
-                        <strong>Currently with:</strong> ${data.name}<br>
-                        <strong>Date:</strong> ${data.date}
+                        <span class="block text-blue-950 font-black text-lg">${data.name}</span>
+                        <span class="text-[10px] opacity-60">Out since ${data.date}</span>
                     `;
                 } else {
-                    document.getElementById('current-holder-info').innerText = "No active checkout found for this device.";
+                    document.getElementById('current-holder-info').innerText = "Device not currently checked out.";
                 }
             } catch (e) {
-                document.getElementById('current-holder-info').innerText = "Error connecting to Google Sheet.";
+                document.getElementById('current-holder-info').innerText = "Lookup error. Try manual sync.";
             }
         }
 
         async function submitRecord() {
             const barcode = document.getElementById('barcode-input').value;
             if (!barcode) {
-                showError("Please scan a device first");
+                showError("Scan a device barcode first");
                 return;
             }
             const btn = document.getElementById('submit-btn');
             btn.disabled = true;
-            btn.innerHTML = '<svg class="animate-spin h-5 w-5 mr-3 border-t-2 border-white rounded-full" viewBox="0 0 24 24"></svg> Saving...';
+            btn.innerHTML = '<svg class="animate-spin h-5 w-5 mr-3 border-t-2 border-white rounded-full" viewBox="0 0 24 24"></svg> UPDATING CLOUD...';
             const payload = {
                 action: 'save',
                 mode: currentMode,
@@ -350,9 +355,9 @@
                 });
                 showSuccess();
             } catch (e) {
-                showError("Failed to save. Check your Apps Script deployment.");
+                showError("Sync failed. Check connection.");
                 btn.disabled = false;
-                btn.innerText = "Save Record";
+                btn.innerText = "Confirm Transaction";
             }
         }
 
@@ -377,7 +382,8 @@
             document.getElementById('assignee-name').value = "";
             document.getElementById('notes').value = "";
             document.getElementById('submit-btn').disabled = false;
-            document.getElementById('submit-btn').innerText = "Save Record";
+            document.getElementById('submit-btn').innerText = "Confirm Transaction";
+            document.getElementById('current-holder-info').innerText = "Scan a barcode to verify owner...";
         }
     </script>
 </body>
